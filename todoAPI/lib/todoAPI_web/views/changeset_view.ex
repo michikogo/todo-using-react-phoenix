@@ -1,0 +1,14 @@
+# Traverses and translates changeset errors
+defmodule TodoAPIWeb.ChangesetView do
+  use TodoAPIWeb, :view
+
+  # define translate errors
+  def translate_errors(changeset) do
+    # This function is throwing errors
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
+
+  def render("error.json", %{changeset: changeset}) do
+    %{errors: translate_errors(changeset)}
+  end
+end
